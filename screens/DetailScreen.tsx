@@ -15,7 +15,7 @@ import {baseURL} from '../constants';
 import {CryptoMarketDataInit, CryptoProfileInit} from '../types';
 import TextAnimator from '../components/TextAnimator';
 
-const DetailScreen = ({route}: {route: any}) => {
+const DetailScreen = ({route, navigation}: {route: any; navigation: any}) => {
   const {width} = useWindowDimensions();
   const id = route.params.id;
   const [cryptoProfile, setCryptoProfile] = useState(CryptoProfileInit);
@@ -34,6 +34,12 @@ const DetailScreen = ({route}: {route: any}) => {
       })
       .catch(err => console.log(err));
   }, []);
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: cryptoProfile.name,
+    });
+  }, [cryptoProfile, navigation]);
 
   return (
     <View style={styles.container}>

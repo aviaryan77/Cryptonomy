@@ -12,10 +12,12 @@ import React, {useEffect, useState} from 'react';
 import {CryptoInit, ICrypto} from '../types';
 import TextAnimator from '../components/TextAnimator';
 import {socket} from '../App';
-import {theme} from '../constants/theme';
+import {theme, w, h} from '../constants/theme';
+import {BannerAdv} from '../Admob';
 
 export const HomeScreen = ({navigation}: {navigation: any}) => {
   const [crypto, setCrypto] = useState(CryptoInit);
+  const [cryptoWithAdd, setCryptoWithAdd] = useState(CryptoInit);
 
   useEffect(() => {
     socket.on('crypto', data => {
@@ -24,10 +26,37 @@ export const HomeScreen = ({navigation}: {navigation: any}) => {
     });
   }, []);
 
+  useEffect(() => {
+    if (crypto?.length) {
+      let randomIndex = Math.floor(Math.random() * crypto.length);
+      let temp = [...crypto];
+      temp.splice(randomIndex, 0, {
+        id: 'ad',
+        name: 'ad',
+        price: 0,
+      });
+
+      setCryptoWithAdd(temp);
+    }
+    // console.warn(cryptoWithAdd);
+  }, [crypto?.length]);
+
   const _onFinish = () => {
     // Alert.alert('Animation', 'It is done!');
   };
   const renderItem = ({item, index}: {item: ICrypto; index: number}) => {
+    if (item.id === 'ad') {
+      return (
+        <BannerAdv
+          containerStyle={{
+            ...styles.crypto,
+            backgroundColor: 'white',
+            padding: 0,
+            overflow: 'hidden',
+          }}
+        />
+      );
+    }
     return (
       <Pressable
         style={styles.crypto}
@@ -50,7 +79,7 @@ export const HomeScreen = ({navigation}: {navigation: any}) => {
       />
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={crypto}
+        data={cryptoWithAdd}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
@@ -76,7 +105,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   crypto: {
-    width: Dimensions.get('window').width * 0.9,
+    width: w * 0.9,
     borderRadius: 5,
     backgroundColor: '#000000',
     padding: 20,

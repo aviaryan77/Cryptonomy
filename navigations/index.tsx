@@ -30,7 +30,7 @@ const MainNavigator = () => {
           name="HomeScreen"
           component={HomeScreen}
           options={{
-            title: 'My home',
+            title: 'Cryptonomy',
             headerStyle: {
               backgroundColor: theme.primary,
             },
@@ -44,7 +44,7 @@ const MainNavigator = () => {
           name="DetailScreen"
           component={DetailScreen}
           options={{
-            title: 'My home',
+            title: 'Crypto Detail',
             headerStyle: {
               backgroundColor: theme.primary,
             },

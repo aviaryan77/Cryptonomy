@@ -1,6 +1,6 @@
 {
   "name": "cryptoapp",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -10,6 +10,8 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@react-native-firebase/admob": "^11.5.0",
+    "@react-native-firebase/app": "^14.9.4",
     "@react-native-masked-view/masked-view": "^0.2.6",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/stack": "^6.2.1",
